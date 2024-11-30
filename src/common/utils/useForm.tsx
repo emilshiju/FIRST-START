@@ -41,7 +41,15 @@ export const useForm = (validate: { (values: IValues): IValues }) => {
     event.preventDefault();
     const values = formState.values;
     const errors = validate(values);
+
+  
     setFormState((prevState) => ({ ...prevState, errors }));
+
+    const hasErrors = Object.values(errors).some((error) => error !== "");
+    
+    if(hasErrors){
+      return false
+    }
 
     const url = ""; // Fill in your API URL here
 
@@ -63,7 +71,9 @@ try{
       aa,
       'gM7n7-bH2tz9zCuT5'
     );
+    return true
   }catch(error){
+    return false
     console.log("error",error)
   }
 

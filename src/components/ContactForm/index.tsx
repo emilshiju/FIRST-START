@@ -10,8 +10,24 @@ import Input from "../../common/Input";
 import TextArea from "../../common/TextArea";
 import { ContactContainer, FormGroup, Span, ButtonContainer } from "./styles";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
+
 const Contact = ({ title, content, id, t }: ContactProps) => {
   const { values, errors, handleChange, handleSubmit } = useForm(validate);
+
+  const handleForm = async (event: React.ChangeEvent<HTMLFormElement>) => {
+    // Call handleSubmit and await the result
+    let resss = await handleSubmit(event); 
+  
+    if (resss) {
+      toast.success("successful sended!");
+    }
+  };
+  
 
   const ValidationType = ({ type }: ValidationTypeProps) => {
     const ErrorMessage = errors[type as keyof typeof errors];
@@ -19,6 +35,8 @@ const Contact = ({ title, content, id, t }: ContactProps) => {
   };
 
   return (
+    <>
+        <ToastContainer />
     <ContactContainer id={id}>
       <Row justify="space-between" align="middle">
         <Col lg={12} md={11} sm={24} xs={24}>
@@ -28,7 +46,7 @@ const Contact = ({ title, content, id, t }: ContactProps) => {
         </Col>
         <Col lg={12} md={12} sm={24} xs={24}>
           <Slide direction="right" triggerOnce>
-            <FormGroup autoComplete="off" onSubmit={handleSubmit}>
+            <FormGroup autoComplete="off" onSubmit={handleForm}>
               <Col span={24}>
                 <Input
                   type="text"
@@ -66,6 +84,7 @@ const Contact = ({ title, content, id, t }: ContactProps) => {
         </Col>
       </Row>
     </ContactContainer>
+    </>
   );
 };
 
