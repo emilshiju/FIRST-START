@@ -56,9 +56,13 @@ export const useForm = (validate: { (values: IValues): IValues }) => {
     let serviceID='service_2lgr16a'
     let templateID='template_sszcbhf'
 let aa:IFormValues={
+  
+  from_email: values.email,
+    to_email: "emilshiju10@gmail.com",
   name:values.name,
   email: values.email,
-  message: "hi"
+  message: "hi",
+  reply_to: values.email
 
 
 }
